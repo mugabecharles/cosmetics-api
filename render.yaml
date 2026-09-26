@@ -1,0 +1,32 @@
+services:
+  - type: web
+    name: cosmetics-api
+    env: php
+    plan: free
+    buildCommand: |
+      composer install --no-dev --optimize-autoloader
+      php artisan key:generate --force
+      php artisan config:cache
+      php artisan route:cache
+    startCommand: php artisan serve --host=0.0.0.0 --port=$PORT
+    envVars:
+      - key: APP_NAME
+        value: "Cosmetics Shop"
+      - key: APP_ENV
+        value: production
+      - key: APP_DEBUG
+        value: false
+      - key: APP_KEY
+        value: "base64:N7GwzOBFN3vJLMNLgrNVMFSruaGZdTafFUr6lHO3vCU="
+      - key: DB_CONNECTION
+        value: mysql
+      - key: SESSION_DRIVER
+        value: file
+      - key: CACHE_STORE
+        value: file
+      - key: LOG_CHANNEL
+        value: stderr
+      - key: JWT_SECRET
+        value: "773UhZFUdhlDOcYNdQtZLmk7WXExUFcb8XWbRp6uxqRX3EDOkE3I9GaITXmvKKPV"
+      - key: FRONTEND_URL
+        value: "https://cosmetics-app-rosy.vercel.app"
